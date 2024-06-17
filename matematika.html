@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Simulasi ASPD Matematika &mdash; Arutala</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="assets/img/ar.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link href="assets/css/main.css" rel="stylesheet">
+  <style>
+    body {
+      padding-top: 200px;
+    }
+    .quiz-card {
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+      transition: 0.3s;
+      padding: 20px;
+      margin-bottom: 1.5rem;
+      border-radius: 5px;
+      
+    }
+    .quiz-card:hover {
+      box-shadow: 0 0 40px rgba(0, 0, 0, 0.15);
+    }
+    .quiz-card h3 {
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: #FF735C;
+      text-align: left;
+    }
+    .btn-start {
+    padding: 10px 20px;
+    background-color: #1A3765;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  .btn-start:hover {
+    opacity: 0.8;
+  }
+    .section-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .section-header h2 {
+      font-size: 2.5rem;
+      font-weight: 700;
+    }
+    .section-header p {
+      font-size: 1rem;
+      color: #6c757d;
+    }
+    .navmenu .active > a {
+      color: #FF735C;
+    }
+    .navmenu .dropdown.active > a {
+      background-color: #ffffff;
+    }
+    .timer {
+      font-size: 1.2rem;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    .progress {
+      height: 20px;
+      margin-bottom: 1rem;
+    }
+    .progress-bar {
+      background-color: #1A3765; /* Warna latar belakang progress bar */
+    }
+    .btn-next {
+      padding: 10px 20px;
+      background-color: #FF735C; 
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    .btn-next {
+      opacity: 0.8; 
+    }
+    .btn-submit {
+      padding: 10px 20px;
+      background-color: #5cff77; 
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    .btn-submit:hover {
+      opacity: 0.8;    
+    }
+    .btn-previous{
+      padding: 10px 20px;
+      background-color: #1A3765; 
+      color: #fff;
+      transition: background-color 0.3s;
+    }
+    .btn-previous:hover{
+      opacity: 0.8;
+    }
+    .result-table {
+      width: 100%;
+      margin: 20px 0;
+      border-collapse: collapse;
+    }
+    .result-table th, .result-table td {
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+    .result-table th {
+      padding-top: 12px;
+      padding-bottom: 12px;
+      text-align: left;
+      background-color: #f2f2f2;
+      color: black;
+    }
+    .quiz-header .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%; /* Menyesuaikan tinggi sesuai kebutuhan */
+  
+}
+.header {
+  z-index: 1000; /* Menetapkan z-index tinggi untuk navbar */
+}
+
+.footer {
+  padding-top: 220px; /* Atur padding di bagian atas footer agar tidak menumpuk dengan header */
+}
+
+  </style>
+</head>
+<body>
+  <header id="header" class="header d-flex align-items-center fixed-top">
+    <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+      <a href="index.html" class="logo d-flex align-items-center">
+        <img src="assets/img/ar.png" alt="">
+        <h1 class="sitename">Arutala</h1>
+      </a>
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="index.html#home">Home<br></a></li>
+          <li><a href="simulasi.html#soal">Bank Soal<br></a></li>
+          <li class="dropdown active"><a href="simulasi.html"><span>Simulasi ASPD</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+            <ul>
+              <li><a href="indonesia.html">Bahasa Indonesia</a></li>
+              <li><a href="matematika.html">Matematika</a></li>
+              <li><a href="inggris.html">Bahasa Inggris</a></li>
+              <li><a href="ipa.html">Ilmu Pengetahuan Alam</a></li>
+            </ul>
+          </li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+    </div>
+  </header>
+
+  <header class="quiz-header">
+    <div class="container">
+      <h1>Matematika</h1>
+      <p>Uji kemampuanmu sejauh mana dengan mencoba Simulasi ASPD Matematika.</p>
+      <button class="btn-start" onclick="startQuiz()">Mulai</button>
+    </div>
+  </header>
+
+  <div class="container quiz-container" style="display: none;">
+    <div class="progress">
+      <div class="progress-bar" role="progressbar" style="width: 0%;" id="progress-bar"></div>
+    </div>
+    <div class="timer" id="timer">Time left: 30:00</div>
+    <div id="quiz">
+      <div class="quiz-card quiz-question active" id="question-1" style="text-align: left;">
+        <h3>Nilai dari √32 + 2√8 × √18 adalah...</h3>
+        <ul class="quiz-options">
+          <li><label><input type="radio" name="q1" value="a"> 16√2</label></li>
+          <li><label><input type="radio" name="q1" value="b"> 24√2</label></li>
+          <li><label><input type="radio" name="q1" value="c"> 4√2 +14</label></li>
+          <li><label><input type="radio" name="q1" value="d"> 4√2 +24</label></li>
+        </ul>
+      </div>
+      <div class="quiz-card quiz-question" id="question-2" style="display: none;">
+        <h3>Diketahui suatu fungsi f(2x-1)= 2x+5. Nilai f(4) adalah...</h3>
+        <ul class="quiz-options">
+          <li><label><input type="radio" name="q2" value="a"> 7</label></li>
+          <li><label><input type="radio" name="q2" value="b"> 13</label></li>
+          <li><label><input type="radio" name="q2" value="c"> 10</label></li>
+          <li><label><input type="radio" name="q2" value="d"> 9</label></li>
+        </ul>
+      </div>
+      <div class="quiz-card quiz-question" id="question-3" style="display: none;">
+        <h3>Diketahui persamaan kuadrat x
+
+          2 +5x + c = 0 dengan nilai diskriminan 81.
+          
+          Nilai akar- akar persamaan kuadrat tersebut adalah...</h3>
+        <ul class="quiz-options">
+          <li><label><input type="radio" name="q3" value="a"> 8 atau -3</label></li>
+          <li><label><input type="radio" name="q3" value="b"> 3 atau -8</label></li>
+          <li><label><input type="radio" name="q3" value="c"> 2atau-7</label></li>
+          <li><label><input type="radio" name="q3" value="d"> -2 atau 7</label></li>
+        </ul>
+      </div>
+      <div class="quiz-card quiz-question" id="question-4" style="display: none;">
+        <h3>Segitiga ABC dengan A(-1,2), B(-1,4), dan C(-3,2) dirotasikan 90o dengan pusat O(0,0) kemudian
+          dilanjutkan pencerminan terhadap sumbu-x. Koordinat bayangan akhir segitiga ABC adalah....</h3>
+        <ul class="quiz-options">
+          <li><label><input type="radio" name="q4" value="a"> A’’(-2,-1) , B’’(-4,-1) , dan C’’(-2,-3)</label></li>
+          <li><label><input type="radio" name="q4" value="b"> A’’(-2,1) , B’’ (-4,-1) , dan C’’(-2,3)
+          <li><label><input type="radio" name="q4" value="c"> A’’(-2,1) , B’’(-4,1) , dan C’’(-2,-3)</label></li>
+          <li><label><input type="radio" name="q4" value="d"> A’’(-2,1) , B’’(-4,1) , dan C’’(-2,3)</label></li>
+        </ul>
+      </div>
+      <div class="quiz-card quiz-question" id="question-5" style="display: none;">
+        <h3>Nilai rata- rata ulangan Matemaika 32 siswa dalam suatu kelas adalah 75. Jumllah siswa laki-laki 24
+          orang. Nilai rata- rata siswa laki- laki lebih tinggi daripada nilai rata- rata siswa perempuan. Jika
+          selisih rata- rata laki- laki dan perempuan adalah 4, maka rata-rata nilai siswa perempuan adalah....</h3>
+        <ul class="quiz-options">
+          <li><label><input type="radio" name="q5" value="a"> 76</label></li>
+          <li><label><input type="radio" name="q5" value="b"> 75</label></li>
+          <li><label><input type="radio" name="q5" value="c"> 74</label></li>
+          <li><label><input type="radio" name="q5" value="d"> 72</label></li>
+        </ul>
+      </div>
+      <div class="text-center">
+        <button class="btn btn-previous" onclick="previousQuestion()">Previous</button>
+        <button class="btn btn-next" onclick="nextQuestion()">Next</button>
+        <button class="btn btn-submit" onclick="submitQuiz()" style="display: none;">Submit</button>
+      </div>
+      <div id="quiz-result" class="result"></div>
+      <div id="answer-key" style="display: none;">
+        <h2>Answer Key</h2>
+        <table class="result-table">
+          <thead>
+            <tr>
+              <th>Question</th>
+              <th>Correct Answer</th>
+              <th>Your Answer</th>
+              <th>Result</th>
+            </tr>
+          </thead>
+          <tbody id="answer-key-list"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <footer id="footer" class="footer">
+    <div class="container footer-top">
+      <div class="row gy-4">
+        <div class="col-lg-4 col-md-6 footer-about">
+          <a href="index.html" class="d-flex align-items-center">
+            <span class="sitename">Arutala Education</span>
+          </a>
+          <div class="footer-contact pt-3">
+            <h6>Kasihan, Bantul, Daerah Istimewa Yogyakarta, Indonesia, 55182</h6>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-12">
+          <h4>Ikuti Kami</h4>
+          <div class="social-links d-flex">
+            <a href="https://www.instagram.com/mtiarasekar/"><i class="bi bi-instagram"></i></a>
+            <a href="https://wa.me/6285198553807"><i class="bi bi-whatsapp"></i></a>
+            <a href="mailto:mutiarasekarkinasih@gmail.com" class="email-link"><i class="bi bi-envelope"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container copyright text-center">
+      <div class="text-center">© <strong><span>Arutala</span></strong>. All Rights Reserved.</div>
+      <div class="credits">Designed by <a href="https://www.instagram.com/mtiarasekar/">Mutiara Sekar</a></div>
+    </div>
+  </footer>
+  <script>
+    let currentQuestion = 1;
+    const totalQuestions = 5;
+    let timerInterval;
+
+    function startQuiz() {
+      document.querySelector('.quiz-header').style.display = 'none';
+      document.querySelector('.quiz-container').style.display = 'block';
+      startTimer(1800); // 10 minutes in seconds
+      toggleButtonVisibility();
+      updateProgressBar(); // Add this line to update the progress bar
+    }
+
+    function nextQuestion() {
+      if (currentQuestion < totalQuestions) {
+        document.getElementById(`question-${currentQuestion}`).style.display = 'none';
+        currentQuestion++;
+        document.getElementById(`question-${currentQuestion}`).style.display = 'block';
+        updateProgressBar();
+        toggleButtonVisibility();
+      }
+    }
+
+    function previousQuestion() {
+      if (currentQuestion > 1) {
+        document.getElementById(`question-${currentQuestion}`).style.display = 'none';
+        currentQuestion--;
+        document.getElementById(`question-${currentQuestion}`).style.display = 'block';
+        updateProgressBar();
+        toggleButtonVisibility();
+      }
+    }
+
+    function toggleButtonVisibility() {
+      const btnPrevious = document.querySelector('.btn-previous');
+      const btnNext = document.querySelector('.btn-next');
+      const btnSubmit = document.querySelector('.btn-submit');
+
+      btnPrevious.style.display = currentQuestion === 1 ? 'none' : 'inline-block';
+      btnNext.style.display = currentQuestion < totalQuestions ? 'inline-block' : 'none';
+      btnSubmit.style.display = currentQuestion === totalQuestions ? 'inline-block' : 'none';
+    }
+
+    function submitQuiz() {
+  clearInterval(timerInterval); // Stop the timer
+  const correctAnswers = {
+    q1: 'd',
+    q2: 'c',
+    q3: 'c',
+    q4: 'b',
+    q5: 'b'
+  };
+
+  let score = 0;
+  let userAnswers = {};
+
+  // Calculate score and gather user answers
+  for (const [question, answer] of Object.entries(correctAnswers)) {
+    const userAnswer = document.querySelector(`input[name="${question}"]:checked`);
+    if (userAnswer) {
+      userAnswers[question] = userAnswer.value;
+      if (userAnswer.value === answer) {
+        score++;
+      }
+    }
+  }
+
+  const result = `You scored ${score} out of ${totalQuestions}.`;
+  document.getElementById('quiz-result').innerText = result;
+
+  // Prepare HTML for displaying answer key and user answers in a table
+  const answerKeyTable = createAnswerTable('answer-key-list', 'Answer Key', correctAnswers);
+  const userAnswersTable = createAnswerTable('user-answers-list', 'Your Answers', userAnswers);
+
+  // Display answer key and user answers
+  const answerKeyDiv = document.getElementById('answer-key');
+  answerKeyDiv.style.display = 'block';
+  answerKeyDiv.innerHTML = ''; // Clear previous content
+
+  answerKeyDiv.appendChild(answerKeyTable);
+  answerKeyDiv.appendChild(userAnswersTable);
+
+  // Hide quiz navigation buttons and show back button
+  document.querySelector('.text-center').style.display = 'none';
+  const backButton = document.createElement('button');
+  backButton.className = 'btn btn-secondary mt-3';
+  backButton.innerText = 'Back';
+  backButton.style.backgroundColor = '#1A3765';
+  backButton.style.color = '#fff';
+  backButton.style.border = 'none';
+  backButton.addEventListener('click', function() {
+    window.location.href = 'simulasi.html'; // Adjust the URL as needed
+  });
+  document.getElementById('quiz').appendChild(backButton);
+}
+
+    function startTimer(duration) {
+      let timer = duration, minutes, seconds;
+      timerInterval = setInterval(() => {
+        minutes = parseInt(timer / 60, 10);
+        seconds = parseInt(timer % 60, 10);
+
+        minutes = minutes < 10 ? '0' + minutes : minutes;
+        seconds = seconds < 10 ? '0' + seconds : seconds;
+
+        document.getElementById('timer').textContent = `Time left: ${minutes}:${seconds}`;
+
+        if (--timer < 0) {
+          clearInterval(timerInterval);
+          submitQuiz();
+        }
+      }, 1000);
+    }
+
+    function updateProgressBar() {
+      const progress = (currentQuestion / totalQuestions) * 100;
+      document.getElementById('progress-bar').style.width = `${progress}%`;
+      document.getElementById('progress-bar').textContent = `Question ${currentQuestion} of ${totalQuestions}`;
+    }
+
+    function createAnswerTable(listId, headingText, answers) {
+  const table = document.createElement('table');
+  table.className = 'table table-bordered mt-3';
+  
+  const heading = document.createElement('caption');
+  heading.innerText = headingText;
+  table.appendChild(heading);
+
+  const list = document.createElement('tbody');
+  list.id = listId;
+
+  for (const [question, answer] of Object.entries(answers)) {
+    const row = document.createElement('tr');
+
+    const questionCell = document.createElement('td');
+    questionCell.innerText = `Question ${question.slice(1)}:`;
+    row.appendChild(questionCell);
+
+    const answerCell = document.createElement('td');
+    answerCell.innerText = answer;
+    row.appendChild(answerCell);
+
+    list.appendChild(row);
+  }
+
+  table.appendChild(list);
+
+  return table;
+}
+  </script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
